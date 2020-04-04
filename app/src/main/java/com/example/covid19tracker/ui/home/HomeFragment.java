@@ -2,6 +2,7 @@ package com.example.covid19tracker.ui.home;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -50,8 +52,18 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 score=0;
+                TextView individualScore = getActivity().findViewById(R.id.individual_score);
                 for(String item:selectedItems){
                     score=score + returnScoreValue(item);
+                }
+                if (score >=0 && score<=8) {
+                    individualScore.setBackgroundResource(R.drawable.circular_textview_drawable_green);
+                }
+                else if(score >=9 && score<=16) {
+                    individualScore.setBackgroundResource(R.drawable.circular_textview_drawable_orange);
+                }
+                else if(score >=17 && score<=24) {
+                    individualScore.setBackgroundResource(R.drawable.circular_textview_drawable);
                 }
                 String display = "Score:\n"+ score;
                 textView.setText(display);
@@ -104,15 +116,18 @@ public class HomeFragment extends Fragment {
 
         final TextView healthPoints = getActivity().findViewById(R.id.health_points);
         healthPoints.setText("Health Points:\n"+100);
+        healthPoints.setBackgroundResource(R.drawable.circular_textview_drawable_green);
         healthPoints.setOnClickListener(new View.OnClickListener() {
             int count = 0;
             public void onClick(View view) {
                 if (count == 0){
-                    healthPoints.setText("Health Points:\n"+90);
+                    healthPoints.setText("Health Points:\n"+40);
+                    healthPoints.setBackgroundResource(R.drawable.circular_textview_drawable);
                     count++;
                 }
                 else if(count == 1) {
                     healthPoints.setText("Health Points:\n"+100);
+                    healthPoints.setBackgroundResource(R.drawable.circular_textview_drawable_green);
                     count--;
                 }
             }
