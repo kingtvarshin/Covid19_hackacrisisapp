@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,15 +44,15 @@ public class HomeFragment extends Fragment {
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
-        FloatingActionButton fab = root.findViewById(R.id.btshow);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Button showButton = root.findViewById(R.id.btshow);
+        showButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer score=0;
+                int score=0;
                 for(String item:selectedItems){
                     score=score + returnScoreValue(item);
                 }
-                String display = "Your Score:\n"+String.valueOf(score);
+                String display = "Your Score:\n"+ score;
                 textView.setText(display);
                 // Toast.makeText(getActivity(), score.toString(), Toast.LENGTH_LONG).show();
             }
