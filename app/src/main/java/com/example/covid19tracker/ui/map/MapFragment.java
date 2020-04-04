@@ -27,8 +27,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class MapFragment extends Fragment {
 
     private MapViewModel mapViewModel;
-    MapView mMapView;
-    TextView raduistxt;
+    private MapView mMapView;
+    private TextView raduistxt;
     private GoogleMap googleMap;
 
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
@@ -55,11 +55,15 @@ public class MapFragment extends Fragment {
                 // googleMap.setMyLocationEnabled(true);
 
                 // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(-34, 151);
-                googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
+                LatLng home = new LatLng(23.2038, 77.5011);
+                LatLng a = new LatLng(23.212, 77.50145);
+                LatLng b = new LatLng(23.204, 77.45);
+                googleMap.addMarker(new MarkerOptions().position(home).title("Marker Title").snippet("Marker Description")).showInfoWindow();;
+                googleMap.addMarker(new MarkerOptions().position(a).title("Marker Title").snippet("Marker Description")).showInfoWindow();;
+                googleMap.addMarker(new MarkerOptions().position(b).title("Marker Title").snippet("Marker Description")).showInfoWindow();;
 
                 // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(home).zoom(12).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
