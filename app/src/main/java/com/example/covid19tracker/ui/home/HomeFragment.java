@@ -102,21 +102,19 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        TextView healthPoints = getActivity().findViewById(R.id.health_points);
+        final TextView healthPoints = getActivity().findViewById(R.id.health_points);
+        healthPoints.setText("Health Points:\n"+100);
         healthPoints.setOnClickListener(new View.OnClickListener() {
-            @Override
+            int count = 0;
             public void onClick(View view) {
-                AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create(); //Read Update
-                alertDialog.setTitle("Your Health Points: 100");
-                alertDialog.setMessage("Stay Home, Stay Safe :)");
-
-                alertDialog.setButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // here you can add functions
-                    }
-                });
-
-                alertDialog.show();  //<-- See This!
+                if (count == 0){
+                    healthPoints.setText("Health Points:\n"+90);
+                    count++;
+                }
+                else if(count == 1) {
+                    healthPoints.setText("Health Points:\n"+100);
+                    count--;
+                }
             }
         });
 
