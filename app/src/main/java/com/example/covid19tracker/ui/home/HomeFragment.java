@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    public Integer returnScoreValue(String symptom) {
+    private Integer returnScoreValue(String symptom) {
         switch(symptom) {
             case "Cough":
             case "Cold":
