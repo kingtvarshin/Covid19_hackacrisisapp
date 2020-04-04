@@ -5,8 +5,8 @@
         android:color="#59369B00" />
 
     <size
-        android:width="120dp"
-        android:height="120dp" />
+        android:width="96dp"
+        android:height="96dp" />
 
     <corners
         android:bottomLeftRadius="65dp"
