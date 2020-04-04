@@ -1,5 +1,7 @@
 package com.example.covid19tracker.ui.home;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -19,7 +20,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.covid19tracker.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -28,6 +28,7 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     ArrayList<String> selectedItems = new ArrayList<>();
     private View view;
+    public Integer score=0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class HomeFragment extends Fragment {
         showButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int score=0;
+                score=0;
                 for(String item:selectedItems){
                     score=score + returnScoreValue(item);
                 }
@@ -63,6 +64,7 @@ public class HomeFragment extends Fragment {
 
     public void onStart(){
         super.onStart();
+
         ListView listView= getActivity().findViewById(R.id.list_view);
         //set multiple selection mode
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -78,10 +80,44 @@ public class HomeFragment extends Fragment {
                     selectedItems.remove(selectedItem);
                 else
                     selectedItems.add(selectedItem);
-
             }
 
         });
+
+        TextView individualScore = getActivity().findViewById(R.id.individual_score);
+        individualScore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create(); //Read Update
+                alertDialog.setTitle("Your Score: "+score);
+                alertDialog.setMessage(whatToDo(score));
+
+                alertDialog.setButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // here you can add functions
+                    }
+                });
+
+                alertDialog.show();  //<-- See This!
+            }
+        });
+
+        final TextView healthPoints = getActivity().findViewById(R.id.health_points);
+        healthPoints.setText("Health Points:\n"+100);
+        healthPoints.setOnClickListener(new View.OnClickListener() {
+            int count = 0;
+            public void onClick(View view) {
+                if (count == 0){
+                    healthPoints.setText("Health Points:\n"+90);
+                    count++;
+                }
+                else if(count == 1) {
+                    healthPoints.setText("Health Points:\n"+100);
+                    count--;
+                }
+            }
+        });
+
     }
 
     private Integer returnScoreValue(String symptom) {
@@ -104,5 +140,21 @@ public class HomeFragment extends Fragment {
             default:
                 return 0;
         }
+    }
+
+    private String whatToDo(Integer score) {
+        if (score>0 && score<=2) {
+            return "May be stress related and observe";
+        }
+        else if(score>=3 && score<=5) {
+            return "Hydrate properly and proper personal hygiene";
+        }
+        else if(score>=6 && score<=12) {
+            return "Seek a consultation with Doctor";
+        }
+        else if(score>=13 && score<=24) {
+            return "Call the DOH Hotline 02-8-651-7800";
+        }
+        return "You're good buddy!";
     }
 }
