@@ -159,7 +159,7 @@ public class HomeFragment extends Fragment {
 
     private String whatToDo(Integer score) {
         if (score>0 && score<=2) {
-            return "May be stress related and observe";
+            return "May be stress related";
         }
         else if(score>=3 && score<=5) {
             return "Hydrate properly and proper personal hygiene";
