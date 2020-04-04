@@ -2,6 +2,7 @@ package com.example.covid19tracker.ui.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,6 +25,7 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     ArrayList<String> selectedItems = new ArrayList<>();
+    private View view;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class HomeFragment extends Fragment {
         //set multiple selection mode
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         String[] items={"Symptom1","Symptom2","Symptom3","Symptom4","Symptom5","Symptom6"};
-        //supply data itmes to ListView
+        //supply data items to ListView
         ArrayAdapter<String> aa=new ArrayAdapter<String>(getActivity(),R.layout.checklist_row,R.id.checklist_row,items);
         listView.setAdapter(aa);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -61,5 +63,17 @@ public class HomeFragment extends Fragment {
             }
 
         });
+    }
+
+    public void showSelectedItems(View view){
+        this.view = view;
+        String selItems="";
+        for(String item:selectedItems){
+            if(selItems=="")
+                selItems=item;
+            else
+                selItems+="/"+item;
+        }
+        Toast.makeText(getActivity(), selItems, Toast.LENGTH_LONG).show();
     }
 }
