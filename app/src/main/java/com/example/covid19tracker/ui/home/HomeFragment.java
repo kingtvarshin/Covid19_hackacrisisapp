@@ -51,7 +51,8 @@ public class HomeFragment extends Fragment {
                 for(String item:selectedItems){
                     score=score + returnScoreValue(item);
                 }
-                textView.setText(String.valueOf(score));
+                String display = "Your Score:\n"+String.valueOf(score);
+                textView.setText(display);
                 // Toast.makeText(getActivity(), score.toString(), Toast.LENGTH_LONG).show();
             }
         });
