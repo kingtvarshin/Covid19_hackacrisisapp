@@ -2,7 +2,6 @@ package com.example.covid19tracker.ui.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -13,11 +12,13 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.covid19tracker.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -40,6 +41,21 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        FloatingActionButton fab = root.findViewById(R.id.btshow);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String selItems="";
+                for(String item:selectedItems){
+                    if(selItems=="")
+                        selItems=item;
+                    else
+                        selItems+="/"+item;
+                }
+                Toast.makeText(getActivity(), selItems, Toast.LENGTH_LONG).show();
+            }
+        });
+
         return root;
     }
 
@@ -48,10 +64,11 @@ public class HomeFragment extends Fragment {
         ListView listView= getActivity().findViewById(R.id.list_view);
         //set multiple selection mode
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        String[] items={"Cough","Cold","Diarrhea","Sore Throat","Body Aches","Headache", "Fever", "Breathing Difficulty", "Fatigue", "Travelled Recently"};
+        String[] items={"Cough","Cold","Diarrhea","Sore Throat","Body Aches","Headache", "Fever",
+                "Breathing Difficulty", "Fatigue", "Travelled Recently", "Travelled to an infected area", "Direct Contact with patient"};
         //supply data items to ListView
-        ArrayAdapter<String> aa=new ArrayAdapter<String>(getActivity(),R.layout.checklist_row,R.id.checklist_row,items);
-        listView.setAdapter(aa);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),R.layout.checklist_row,R.id.checklist_row,items);
+        listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = ((TextView) view).getText().toString();
@@ -63,17 +80,5 @@ public class HomeFragment extends Fragment {
             }
 
         });
-    }
-
-    public void showSelectedItems(View view){
-        this.view = view;
-        String selItems="";
-        for(String item:selectedItems){
-            if(selItems=="")
-                selItems=item;
-            else
-                selItems+="/"+item;
-        }
-        Toast.makeText(getActivity(), selItems, Toast.LENGTH_LONG).show();
     }
 }
