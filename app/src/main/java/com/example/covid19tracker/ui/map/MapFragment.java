@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -25,6 +28,7 @@ public class MapFragment extends Fragment {
 
     private MapViewModel mapViewModel;
     MapView mMapView;
+    TextView raduistxt;
     private GoogleMap googleMap;
 
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
@@ -60,25 +64,46 @@ public class MapFragment extends Fragment {
             }
         });
 
-        FloatingActionButton fab = root.findViewById(R.id.floatingActionButton);
-        fab.setOnClickListener(new View.OnClickListener() {
+        SeekBar seekBar = root.findViewById(R.id.radiusbar);
+//        int radius = seekBar.getProgress();
+        raduistxt = root.findViewById(R.id.radiustxt);
+//        raduistxt.setText(radius+" km");
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onClick(View view) {
-                //filter button
-                AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create(); //Read Update
-                alertDialog.setTitle("hi");
-                alertDialog.setMessage("this is my app");
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                raduistxt.setText(String.valueOf(progress)+" km");
+            }
 
-                alertDialog.setButton("Continue..", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // here you can add functions
-                    }
-                });
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
 
-                alertDialog.show();  //<-- See This!
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
         });
+
+//        FloatingActionButton fab = root.findViewById(R.id.floatingActionButton);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //filter button
+//                AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create(); //Read Update
+//                alertDialog.setTitle("hi");
+//                alertDialog.setMessage("this is my app");
+//
+//                alertDialog.setButton("Continue..", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        // here you can add functions
+//                    }
+//                });
+//
+//                alertDialog.show();  //<-- See This!
+//
+//            }
+//        });
 
         return root;
     }
