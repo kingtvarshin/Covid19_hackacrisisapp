@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "216239792603",
+    "firebase_url": "https://hackcron-007.firebaseio.com",
+    "project_id": "hackcron-007",
+    "storage_bucket": "hackcron-007.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216239792603:android:0ed6c65735f7ec66de87fe",
+        "android_client_info": {
+          "package_name": "com.example.covid19tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "216239792603-l7dj0kclef10gvfrt5va510bd9pn2sqv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAI1wS0pwmH1LvQn_eT45b2m7XSoKcV8wM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "216239792603-l7dj0kclef10gvfrt5va510bd9pn2sqv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
