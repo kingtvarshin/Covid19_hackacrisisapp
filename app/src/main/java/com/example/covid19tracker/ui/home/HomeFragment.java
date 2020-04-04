@@ -4,7 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -14,22 +18,48 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.covid19tracker.R;
 
+import java.util.ArrayList;
+
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+    ArrayList<String> selectedItems = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
+        final TextView textView = root.findViewById(R.id.individual_score);
         homeViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
         });
+
         return root;
+    }
+
+    public void onStart(){
+        super.onStart();
+        ListView listView= getActivity().findViewById(R.id.list_view);
+        //set multiple selection mode
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        String[] items={"Symptom1","Symptom2","Symptom3","Symptom4","Symptom5","Symptom6"};
+        //supply data itmes to ListView
+        ArrayAdapter<String> aa=new ArrayAdapter<String>(getActivity(),R.layout.checklist_row,R.id.checklist_row,items);
+        listView.setAdapter(aa);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = ((TextView) view).getText().toString();
+                if(selectedItems.contains(selectedItem))
+                    selectedItems.remove(selectedItem);
+                else
+                    selectedItems.add(selectedItem);
+
+            }
+
+        });
     }
 }
