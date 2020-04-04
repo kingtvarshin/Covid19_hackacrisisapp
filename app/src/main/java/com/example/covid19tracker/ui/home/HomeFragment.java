@@ -41,18 +41,18 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+
         FloatingActionButton fab = root.findViewById(R.id.btshow);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String selItems="";
+                Integer score=0;
                 for(String item:selectedItems){
-                    if(selItems=="")
-                        selItems=item;
-                    else
-                        selItems+="/"+item;
+                    score=score + returnScoreValue(item);
                 }
-                Toast.makeText(getActivity(), selItems, Toast.LENGTH_LONG).show();
+                textView.setText(String.valueOf(score));
+                // Toast.makeText(getActivity(), score.toString(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -80,5 +80,27 @@ public class HomeFragment extends Fragment {
             }
 
         });
+    }
+
+    public Integer returnScoreValue(String symptom) {
+        switch(symptom) {
+            case "Cough":
+            case "Cold":
+            case "Diarrhea":
+            case "Sore Throat":
+            case "Body Aches":
+            case "Headache":
+            case "Fever":
+                return 1;
+            case "Breathing Difficulty":
+            case "Fatigue":
+                return 2;
+            case "Travelled Recently":
+            case "Travelled to an infected area":
+            case "Direct Contact with patient":
+                return 3;
+            default:
+                return 0;
+        }
     }
 }
