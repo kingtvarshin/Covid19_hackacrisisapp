@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
         ListView listView= getActivity().findViewById(R.id.list_view);
         //set multiple selection mode
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        String[] items={"Symptom1","Symptom2","Symptom3","Symptom4","Symptom5","Symptom6"};
+        String[] items={"Cough","Cold","Diarrhea","Sore Throat","Body Aches","Headache", "Fever", "Breathing Difficulty", "Fatigue", "Travelled Recently"};
         //supply data items to ListView
         ArrayAdapter<String> aa=new ArrayAdapter<String>(getActivity(),R.layout.checklist_row,R.id.checklist_row,items);
         listView.setAdapter(aa);
